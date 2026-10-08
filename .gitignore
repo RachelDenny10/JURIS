@@ -1,0 +1,39 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ---- Secrets / environment ----
+.env
+
+# ---- Node / React ----
+node_modules/
+frontend/dist/
+
+# ---- Raw documents and uploads (not for Git) ----
+data/raw/**
+!data/raw/.gitkeep
+storage/documents/**
+!storage/documents/.gitkeep
+
+# ---- Local processed outputs and registry ----
+data/processed/*
+!data/processed/.gitkeep
+data/metadata/documents.csv
+
+# ---- Trained models and fitted artifacts (rebuilt locally) ----
+*.joblib
+*.faiss
+*.index
+models/classification/*.json
+
+# ---- OS / IDE ----
+.DS_Store
+.vscode/*
+!.vscode/settings.json
+
+# ---- Logs ----
+*.log
