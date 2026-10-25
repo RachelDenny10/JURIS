@@ -33,3 +33,6 @@ models/**/*.index
 
 # Logs
 *.log
+
+#Storage
+*.db

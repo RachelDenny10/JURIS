@@ -18,3 +18,7 @@ cymem==2.0.8
 murmurhash==1.0.10
 preshed==3.0.9
 thinc==8.2.5
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
