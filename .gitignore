@@ -36,3 +36,4 @@ models/**/*.index
 
 #Storage
 *.db
+*.db
