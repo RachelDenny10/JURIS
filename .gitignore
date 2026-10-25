@@ -1,5 +1,4 @@
-
-# Python
+# ---- Python ----
 __pycache__/
 *.py[cod]
 *.egg-info/
@@ -7,33 +6,43 @@ __pycache__/
 venv/
 env/
 
-# Environment
+# ---- Secrets / environment ----
 .env
 
-# Node / React
+# ---- Node / React ----
 node_modules/
 frontend/dist/
-frontend/.vite/
 
-# Data & models (large / sensitive — tracked via .gitkeep only)
+# ---- Raw documents and uploads (not for Git) ----
 data/raw/**
-data/processed/**
 !data/raw/.gitkeep
-!data/processed/.gitkeep
 storage/documents/**
 !storage/documents/.gitkeep
-models/**/*.pkl
-models/**/*.faiss
-models/**/*.index
 
-# OS / IDE
+# ---- Local processed outputs and registry ----
+data/processed/*
+!data/processed/.gitkeep
+data/metadata/documents.csv
+data/metadata/*.db
+
+# ---- Databases ----
+*.db
+*.sqlite3
+
+# ---- Trained models and fitted artifacts (rebuilt locally) ----
+*.joblib
+*.faiss
+*.index
+models/classification/*.json
+models/embeddings/*
+!models/embeddings/.gitkeep
+models/vector_store/*
+!models/vector_store/.gitkeep
+
+# ---- OS / IDE ----
 .DS_Store
 .vscode/*
 !.vscode/settings.json
 
-# Logs
+# ---- Logs ----
 *.log
-
-#Storage
-*.db
-*.db
