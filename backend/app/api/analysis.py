@@ -16,7 +16,10 @@ from app.schemas.document import (
     ChiSquareFeature,
     ChiSquareResponse,
     ExtractionResponse,
+    KeywordComparisonResponse,
     PreprocessingResponse,
+    TextRankKeyword,
+    TextRankResponse,
     TfidfFitResponse,
     TfidfKeyword,
     TfidfKeywordsResponse,
@@ -27,6 +30,7 @@ from app.services import (
     document_service,
     pdf_extraction_service,
     preprocessing_service,
+    textrank_service,
     tfidf_service,
 )
 
@@ -349,4 +353,84 @@ def get_chi_square_features(top_n: int = Query(default=15, ge=1, le=100)):
         document_count=result["document_count"],
         is_statistically_weak=result["is_statistically_weak"],
         warning=warning,
+    )
+
+
+
+@router.post("/textrank/{document_id}", response_model=TextRankResponse)
+def get_textrank_keywords(document_id: str, top_n: int = Query(default=10, ge=1, le=50)):
+    """
+    Run TextRank keyword extraction on a document's cleaned text.
+    Requires preprocessing to have been run first, since it reuses the
+    saved cleaned_text.
+    """
+    settings = get_settings()
+
+    try:
+        document_service.get_document(document_id)
+    except document_service.DocumentNotFoundError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+    preprocessed_path = settings.project_root / "data" / "processed" / f"{document_id}_preprocessed.json"
+    if not preprocessed_path.exists():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No preprocessed text found for this document. Call /analysis/preprocess/{document_id} first.",
+        )
+
+    cleaned_text = json.loads(preprocessed_path.read_text(encoding="utf-8"))["cleaned_text"]
+
+    try:
+        keywords = textrank_service.extract_textrank_keywords(cleaned_text, top_n=top_n)
+    except textrank_service.TextRankError as exc:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+    except Exception:
+        logger.exception("Unexpected error running TextRank for %s", document_id)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Could not run TextRank on this document.",
+        )
+
+    return TextRankResponse(
+        document_id=document_id,
+        keywords=[TextRankKeyword(**kw) for kw in keywords],
+    )
+
+
+@router.get("/keywords/compare/{document_id}", response_model=KeywordComparisonResponse)
+def compare_keywords(document_id: str, top_n: int = Query(default=10, ge=1, le=50)):
+    """
+    Return TF-IDF and TextRank top keywords for the same document side
+    by side. Requires TF-IDF to be fitted and the document to be
+    preprocessed.
+    """
+    settings = get_settings()
+
+    try:
+        document_service.get_document(document_id)
+    except document_service.DocumentNotFoundError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+    try:
+        tfidf_keywords = tfidf_service.get_top_keywords_for_document(document_id, top_n=top_n)
+    except tfidf_service.TfidfError as exc:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"TF-IDF: {exc}") from exc
+
+    preprocessed_path = settings.project_root / "data" / "processed" / f"{document_id}_preprocessed.json"
+    if not preprocessed_path.exists():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No preprocessed text found for this document.",
+        )
+    cleaned_text = json.loads(preprocessed_path.read_text(encoding="utf-8"))["cleaned_text"]
+
+    try:
+        textrank_keywords = textrank_service.extract_textrank_keywords(cleaned_text, top_n=top_n)
+    except textrank_service.TextRankError as exc:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"TextRank: {exc}") from exc
+
+    return KeywordComparisonResponse(
+        document_id=document_id,
+        tfidf_keywords=[TfidfKeyword(**kw) for kw in tfidf_keywords],
+        textrank_keywords=[TextRankKeyword(**kw) for kw in textrank_keywords],
     )

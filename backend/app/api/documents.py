@@ -2,7 +2,7 @@
 Document management API.
 
 Phase 2 scope: upload, list, retrieve, and delete legal document
-metadata and their stored PDF files.
+metadata and their stored PDF files. No text extraction here.
 """
 
 import logging

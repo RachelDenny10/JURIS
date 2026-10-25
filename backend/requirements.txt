@@ -13,4 +13,8 @@ numpy==1.26.4
 pytesseract==0.3.13
 Pillow==11.0.0
 networkx==3.3
-networkx==3.3
+blis==0.7.11
+cymem==2.0.8
+murmurhash==1.0.10
+preshed==3.0.9
+thinc==8.2.5

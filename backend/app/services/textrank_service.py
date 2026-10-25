@@ -28,6 +28,13 @@ logger = logging.getLogger("juris.textrank_service")
 CANDIDATE_POS = {"NOUN", "PROPN", "ADJ"}
 WINDOW_SIZE = 4
 
+# Legal drafting words that spaCy tags as adjectives but carry no topical meaning.
+# Hand-picked from inspecting TextRank output on one Act; extend as needed.
+EXCLUDED_WORDS = {
+    "such", "other", "said", "same", "certain", "aforesaid", "concerned",
+    "respective", "following", "further", "various", "relevant", "many", "more",
+}
+
 _spacy_model_cache = None
 
 
@@ -55,8 +62,12 @@ def _extract_candidates(doc) -> list[tuple[str, int]]:
     """
     candidates = []
     for i, token in enumerate(doc):
-        if token.pos_ in CANDIDATE_POS and token.is_alpha:
-            candidates.append((token.lemma_.lower(), i))
+                if (
+            token.pos_ in CANDIDATE_POS
+            and token.is_alpha
+            and token.lemma_.lower() not in EXCLUDED_WORDS
+        ):
+                    candidates.append((token.lemma_.lower(), i))
     return candidates
 
 
