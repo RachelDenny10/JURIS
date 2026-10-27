@@ -17,6 +17,9 @@ from app.api.entities import router as entities_router
 from app.core.config import get_settings
 from app.services.document_service import ensure_storage_ready
 
+from app.api.embeddings import router as embeddings_router
+
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
@@ -43,6 +46,7 @@ app.include_router(documents_router)
 app.include_router(analysis_router)
 app.include_router(classification_router)
 app.include_router(entities_router)
+app.include_router(embeddings_router)
 
 
 @app.on_event("startup")

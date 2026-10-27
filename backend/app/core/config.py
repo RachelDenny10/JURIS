@@ -38,6 +38,11 @@ class Settings(BaseSettings):
     # If fewer than this fraction of pages are "meaningful", OCR is
     # triggered for the non-meaningful pages.
     ocr_trigger_meaningful_ratio: float = 0.5
+        # --- Embeddings / chunking (Phase 11) ---
+    # embedding_model_name already exists above (EMBEDDING_MODEL_NAME in .env)
+    chunk_target_words: int = 200
+    chunk_overlap_words: int = 40
+    embedding_batch_size: int = 32
 
     model_config = SettingsConfigDict(
         env_file=".env",
