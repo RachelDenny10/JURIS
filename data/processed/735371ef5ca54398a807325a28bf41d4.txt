@@ -1,0 +1,369 @@
+1 
+Guidelines for Prevention and Regulation of Dark Patterns, 2023 
+ 
+Authority - U/powers conferred by section 18 of the Consumer Protection Act, 
+2019, the Central Consumer Protection Authority (CCPA) issued the following 
+guidelines.  
+ 
+Definitions -  
+ 
+- 
+“Dark patterns” shall mean any practices or deceptive design pattern using 
+user interface or user experience interactions on any platform that is 
+designed to mislead or trick users to do something they originally did not 
+intend or want to do, by subverting or impairing the consumer autonomy, 
+decision making or choice, amounting to misleading advertisement or 
+unfair trade practice or violation of consumer rights. 
+- 
+“Platform” under these guidelines shall have the same meaning as defined 
+under Consumer Protection (E-Commerce) Rules, 2020.   [E-Commerce 
+Rules - (i) “platform” means an online interface in the form of any software 
+including a website or a part thereof and applications including mobile 
+applications] 
+ 
+Application - Section 3 - These guidelines shall apply to - 
+(i) all platforms, systematically offering goods or services in India;  
+(ii) advertisers; 
+(iii) sellers. 
+ 
+Prohibition/bar - Section 4 - Prohibitions against engaging in dark patterns - 
+No person, including any platform, shall engage in any dark pattern practice. 
+ 
+Section 5 - Any person, including any platform, shall be considered to be 
+engaging in a dark pattern practice if it engages in any practice specified in 
+Annexure 1 of the guidelines. 
+ 
+- 
+A joint reading of sections 4 and 5 appears to suggest that: what 
+constitutes violation of the prohibition under section 4 is exhausted by the 
+Guidelines. Put in other words, section 5 delineates what amounts to “any 
+dark pattern practice”. As such no practice not specified under Annexure 
+1 could be considered a dark pattern practice under the Guidelines. 
+- 
+Or maybe not, as Guidelines are not meant to be exhaustive.  
+- 
+The Guidelines seem to apply to offline platforms too as the definition of 
+“advertiser” 
+under 
+the 
+Guidelines 
+for 
+Prevention 
+of 
+Misleading
+
+----- PAGE BREAK -----
+
+2 
+Advertisements and Endorsements for Misleading Advertisements, 2022 
+include :  
+ 
+2 (b) … a person who designs, produces and publishes advertisements either by 
+his own effort or by entrusting it to others in order to promote the sale of his 
+goods, products or services and includes a manufacturer and service provider of 
+such goods, products or services 
+ 
+Specified Dark Patterns under the Annexure  
+ 
+1. “False Urgency” means falsely stating or implying the sense of urgency or 
+scarcity so as to mislead a user into making an immediate purchase or 
+taking an immediate action, which may lead to a purchase, including - (i) 
+showing false popularity of a product or service to manipulate user 
+decision; (ii) stating that quantities of a particular product or service are 
+more limited than they actually are. 
+ 
+2. “Basket sneaking” means inclusion of additional items such as products, 
+services, payments to charity or donation at the time of checkout from a 
+platform, without the consent of the user, such that the total amount 
+payable by the user is more than the amount payable for the product or 
+service chosen by the user: Provided that the addition of free samples or 
+providing complimentary services or addition of necessary fees disclosed 
+at the time of purchase, shall not be considered as basket sneaking. 
+[Explanation- The term “necessary fees” means, the fees which is 
+necessary to fulfill the completion of the order such as delivery charges, 
+gift wrapping, additional taxes on the product charged by the government 
+or any other charges which are explicitly disclosed to the consumer at the 
+time of purchase.] 
+ 
+3. “Confirm shaming” means using a phrase, video, audio or any other means 
+to create a sense of fear or shame or ridicule or guilt in the mind of the 
+user so as to nudge the user to act in a certain way that results in the user 
+purchasing a product or service from the platform or continuing a 
+subscription of a service, primarily for the purpose of making commercial 
+gains by subverting consumer choice.  
+ 
+- 
+Using a phrase meant to create a sense of fear or shame etc. in respect of 
+a product or service which is not offered by the platform may not 
+technically qualify as “confirm shaming”.
+
+----- PAGE BREAK -----
+
+3 
+ 
+4. “Forced action” means forcing a user into taking an action that would 
+require the user to buy any additional goods or subscribe or sign up for 
+an unrelated service or share personal information in order to buy or 
+subscribe to the product or service originally intended by the user. 
+ 
+5. “Subscription trap” means the process of- (i) making cancellation of a paid 
+subscription impossible or a complex and lengthy process; or (ii) hiding 
+the cancellation option for a subscription; or (iii) forcing a user to provide 
+payment details or authorization for auto debits for availing a free 
+subscription; or (iv) making the instructions related to cancellation of 
+subscription ambiguous, latent, confusing, cumbersome. 
+ 
+- 
+The DPDP Act also casts a similar obligation on the Data Fiduciary by 
+stipulating under section 6(4) that the Data Principal shall have the right 
+to withdraw her consent at any time, with the ease of doing so being 
+comparable to the ease with which such consent was given. 
+ 
+6. “Interface interference” means a design element that manipulates the user 
+interface in ways that (a) highlights certain specific information; and (b) 
+obscures other relevant information relative to the other information; to 
+misdirect a user from taking an action as desired. 
+ 
+7. “Bait and switch” means the practice of advertising a particular outcome 
+based on the user’s action but deceptively serving an alternative outcome. 
+ 
+8. “Drip pricing” means a practice whereby- (i) elements of prices are not 
+revealed upfront or are revealed surreptitiously within the user experience; 
+or (ii) revealing the price post-confirmation of purchase, i.e. charging an 
+amount higher than the amount disclosed at the time of checkout; or (iii) 
+a product or service is advertised as free without appropriate disclosure of 
+the fact that the continuation of use requires in-app purchase; or (iv) a 
+user is prevented from availing a service which is already paid for unless 
+something additional is purchased. Explanation-: A marketplace e-
+commerce entity shall not be liable for price fluctuations to the extent 
+attributable to price changes by third party sellers or due to other factors 
+beyond their control. 
+ 
+- 
+However, 8 (ii) may not arise in India due to MRP Law. Or perhaps, its 
+limited application may be in the Purchase Now, Pay Later industry.
+
+----- PAGE BREAK -----
+
+4 
+- 
+Re 8 (iii): If some services are free and some require in-app purchase - the 
+user can continue using the product or service as a whole. As such, this 
+shall not not attract this provision. 
+ 
+9. “Disguised advertisement” means a practice of posing, masking 
+advertisements as other types of content such as user generated content 
+or new articles or false advertisements, which are designed to blend in with 
+the rest of an interface in order to trick customers into clicking on them. 
+Explanation- (a) for the purposes of this paragraph, the expression 
+“disguised advertisement” shall also include misleading advertisement as 
+defined in clause 2(28) of the Act and the “Guidelines for Prevention of 
+Misleading 
+Advertisements 
+and 
+Endorsements 
+for 
+Misleading 
+Advertisements, 2022” shall also be applicable to it; (b) in relation to 
+content posted by a seller or an advertiser on a platform, the responsibility 
+of making the disclosure that such content is an advertisement shall be 
+on such seller or advertiser. 
+ 
+- 
+Political advertisements on TV news channels and newspapers often come 
+in this form. It would be interesting to see if these will attract this 
+provision.  
+ 
+10. 
+ “Nagging” means a dark pattern practice due to which a user is 
+disrupted and annoyed by repeated and persistent interactions, in the 
+form of requests, information, options, or interruptions, to effectuate a 
+transaction and make some commercial gains, unless specifically 
+permitted by the user.  
+ 
+- 
+Why should nagging be outlawed at all? Nagging is similar to nudging. 
+However, it is sludging, as opposed to nudging, which disturbs information 
+symmetry, by making a process more difficult such that the buyer arrives 
+at an outcome that is not in his best interest. Unlike nudging, sludging is 
+not aligned with market actors’ preferences for maximizing utility, and is 
+inefficient. Nudging does not necessarily lead to inefficient outcomes. 
+ 
+11. 
+ “Trick Question” means the deliberate use of confusing or vague 
+language like confusing wording, double negatives, or other similar tricks, 
+in order to misguide or misdirect a user from taking desired action or 
+leading consumers to take a specific response or action.
+
+----- PAGE BREAK -----
+
+5 
+12. 
+ “Saas billing” refers to the process of generating and collecting 
+payments from consumers on a recurring basis in a software as a service 
+(SaaS) business model by exploiting positive acquisition loops in recurring 
+subscriptions to get money from users as surreptitiously as possible. 
+ 
+13. 
+ “Rogue Malwares” means using ransomware or scareware to 
+mislead or trick users into believing there is a virus on their computer and 
+aims to convince them to pay for a fake malware removal tool that actually 
+installs malware on their computer. 
+ 
+- 
+Malwares are anyway covered by IT Act and IPC. Thus, the need to insert 
+this in the Guidelines is not clear. 
+ 
+Penalty for violating the Guidelines 
+ 
+Section 89, CPA: Any manufacturer or service provider who causes a false or 
+misleading advertisement to be made which is prejudicial to the interest of 
+consumers shall be punished with imprisonment for a term which may extend 
+to two years and with fine which may extend to ten lakh rupees; and for every 
+subsequent offence, be punished with imprisonment for a term which may 
+extend to five years and with fine which may extend to fifty lakh rupees. 
+ 
+20. Where the Central Authority is satisfied on the basis of investigation that 
+there is sufficient evidence to show violation of consumer rights or unfair trade 
+practice by a person, it may pass such order as may be necessary, including— 
+(a) recalling of goods or withdrawal of services which are dangerous, hazardous 
+or unsafe; 
+(b) reimbursement of the prices of goods or services so recalled to purchasers of 
+such goods or services; and 
+(c) discontinuation of practices which are unfair and prejudicial to consumers' 
+interest. 
+ 
+US Law 
+ 
+Courts in the United States have not been proactively using the term ‘dark 
+patterns’ when issuing decisions policing manipulative user interfaces. Instead, 
+they have usually relied on existing doctrines dealing with manipulative 
+contractual designs in contract law and the Children’s Online Privacy Protection 
+Act (COPPA).
+
+----- PAGE BREAK -----
+
+6 
+Pre 2010 case law  
+ 
+Specht v. Netscape Communications Corp. - users reported that when they 
+downloaded one of Netscape’s programs, a second plug-in program was also 
+inadvertently installed. This program had its own license terms, which were 
+placed at the bottom of the website, after the “download” button (where users 
+rarely scrolled) and did not request an “I agree” check. Justice Sotomayor ruled 
+that downloading the second plug-in did not constitute acceptance of its terms 
+and stated that contractual terms that are not called to the attention of the 
+recipient which are on a “submerged screen”, are not sufficient to notify 
+consumers of those terms. Thus, the Court was still able to decide on a 
+manipulative website design as an issue of assent under classic U.S contract 
+law. 
+ 
+Post 2010  
+ 
+Nguyen v. Barnes & Noble Inc. - Barnes & Noble launched a fire sale of 
+Touchpads, and the plaintiff purchased two units on their website. The following 
+day, Barnes & Noble informed the plaintiff that they could not complete the order 
+due to unexpected high demand and canceled the purchase. The plaintiff sued 
+in federal court, and Barnes & Noble moved to stay court proceedings based on 
+an arbitration clause included in the Terms of Use of its website (available via a 
+hyperlink located in the bottom left-hand corner of the website). The Court 
+denied the enforceability of the arbitration clause included in the Terms of Use 
+stating that (ii) Nguyen had insufficient notice of the same and that the clause 
+was made available through a “conspicuous hyperlink” that does not prompt 
+users to take any affirmative action to demonstrate assent.  
+ 
+McDonald v. Kiloo A/S8 - a group of parents initiated a class action against the 
+developers of the app Subway Surfers and a group of software development kits 
+(SDKs). The game developers and the SDKs received the transmission of personal 
+data from users of the game (children) while they were playing it online. SDKs 
+collected personal identifiable information directly from the mobile device where 
+the child was playing and also detected the child’s activity across multiple apps, 
+platforms, and devices. Afterwards, they used this data to facilitate targeted 
+behavioral advertising. Plaintiffs argued a violation of the federal Children’s 
+Online Privacy Protection Act (COPPA), a common law tort claim of intrusion, 
+and a consumer protection claim under New York General Business Low § 
+349(a). The case was settled.
+
+----- PAGE BREAK -----
+
+7 
+Statutory law  
+ 
+- 
+The California Privacy Rights Act (CPRA), which came into full force and 
+effect in January 2023, and which amended the California Consumer 
+Privacy Act (CCPA), defines a dark pattern as: “[a] user interface designed 
+or manipulated with the substantial effect of subverting or impairing user 
+autonomy, decision-making, or choice, as further defined by regulation.”  
+- 
+California Privacy Protection Agency as the body in charge of enforcing the 
+CPRA. 
+- 
+However, the CPRA seems to refer to the use of dark patterns for the 
+collection of personal data. This excludes other types of dark patterns that 
+do not trigger personal data obligations, but are manipulative and 
+deceptive. 
+- 
+California Age-Appropriate Design Code Act - This Code will be effective 
+July 1, 2024. It defines dark patterns and states that busi- nesses that 
+provide an online service, prod- uct, or feature likely to be accessed by 
+children shall not “use dark patterns to lead or encourage children to 
+provide personal information beyond what is reasonably expected to 
+provide that online service, prod- uct, or feature to forego privacy 
+protections, or to take any action that the business knows, or has reason 
+to know, is materially detrimental to the child’s physical health, mental 
+health, or well-being.” 
+- 
+Under the Federal Trade Commission Act, the Federal Trade Commission 
+(FTC) combats the use of unfair or deceptive practices that affect 
+commerce in interstate trade. In this role, the FTC has filed actions against 
+several companies for the use of dark patterns, even if some cases do not 
+specifically use this term. [see: Section 5(a) of the FTC Act, 15 U.S.C. § 
+45(a) which prohibits “unfair or deceptive acts or practices in or affecting 
+commerce.”] 
+- 
+It appears that the U.S. law has clearly identified the loss or impairment 
+of personal data as the market failure which is sought to be corrected by 
+the law. By contrast, the Indian law fails to identify a specific market 
+failure which the Guidelines seek to correct. It may be argued that the 
+Guidelines seek to address informational asymmetry, but “nagging” or 
+“confirm shaming” do not cause informational asymmetry, but are still 
+outlawed.  
+ 
+Economics
+
+----- PAGE BREAK -----
+
+8 
+- 
+Law and economics, which is the application of economic theory, especially 
+microeconomic theory, to the analysis and practice of law, provides valid 
+tools to understand and investigate dark patterns as a legal phenomenon 
+in online contracting. 
+- 
+Increased comprehension (by addressing information asymmetry) could 
+decrease contracting related transaction costs, such as time, various 
+scarce resources, and the likelihood of disagreements and disputes, while 
+also increasing positive views, such as trust, and contractual commitment. 
+- 
+Comprehensibility decreases the need for re-negotiation and reduces 
+unintentional and intentional contract breaches. 
+- 
+Sludge (behavioral economics)- It makes a process more difficult in order 
+to arrive at an outcome that is not in the best interest of the sludged. 
+Unlike nudging, sludging is not aligned with market actors’ preferences for 
+maximizing utility. Sludge causes information asymmetry, one of the four 
+market failures in economic theory.  
+- 
+Market failure is described as a situation where there is a room for Pareto-
+improvements, but it cannot be realized through market mechanisms. 
+Therefore, state intervention may be required.  
+- 
+The exploitation of biases will affect the functioning of the market, making 
+it sub optimal, as these manipulative designs will make the market actors 
+behave against their preferences. How? Consumers buy things that they 
+do not really want. They give up their scarce resources (i.e., money) for 
+things that do not necessarily increase their utility; Consumers buy more 
+products. The utility function works suboptimally; the company captures 
+the consumer welfare - since consumers now buy products without any 
+effective change in product prices.

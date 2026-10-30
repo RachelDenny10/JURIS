@@ -122,8 +122,9 @@ class KeywordComparisonResponse(BaseModel):
 
 
 class ClassificationTrainResponse(BaseModel):
-    """Result of training and cross-validating the Naive Bayes classifier."""
+    """Result of training and cross-validating the Logistic Regression classifier."""
 
+    model: str = "Logistic Regression"
     document_count: int
     category_counts: dict[str, int]
     features_selected: int

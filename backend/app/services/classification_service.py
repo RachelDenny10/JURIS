@@ -30,6 +30,8 @@ from sklearn.feature_selection import SelectKBest, chi2
 from sklearn.metrics import confusion_matrix, precision_recall_fscore_support
 from sklearn.model_selection import StratifiedKFold, cross_val_predict
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.pipeline import Pipeline
+from sklearn.linear_model import LogisticRegression
 
 from app.core.config import get_settings
 from app.services import document_service, tfidf_service
@@ -37,13 +39,13 @@ from app.services import document_service, tfidf_service
 logger = logging.getLogger("juris.classification_service")
 
 SELECTOR_FILENAME = "chi2_selector.joblib"
-MODEL_FILENAME = "naive_bayes_model.joblib"
+MODEL_FILENAME = "logistic_regression_model.joblib"
+NAIVE_BAYES_MODEL_FILENAME = "naive_bayes_model.joblib"
 LABELS_FILENAME = "classification_labels.joblib"
 
-DEFAULT_TOP_K_FEATURES = 200
+DEFAULT_TOP_K_FEATURES = 500
 MIN_DOCUMENTS_TO_TRAIN = 4
 MIN_CATEGORIES_TO_TRAIN = 2
-
 
 class ClassificationError(Exception):
     """Raised when classification cannot proceed (e.g. not enough data, not trained yet)."""
@@ -82,87 +84,124 @@ def _get_corpus_matrix_and_labels():
     return vectorizer, matrix, np.array(labels), document_ids
 
 
+
 def train_and_evaluate(top_k_features: int = DEFAULT_TOP_K_FEATURES) -> dict:
-    """
-    Run the full TF-IDF -> Chi-Square -> Naive Bayes pipeline:
+    """Evaluate and train Logistic Regression, retaining Naive Bayes as fallback."""
 
-      1. Load the fitted TF-IDF matrix + category labels.
-      2. Select the top-K most discriminative features via chi2.
-      3. Evaluate with stratified k-fold cross-validation (k capped
-         at the smallest class size) to get honest metrics.
-      4. Retrain a final model on ALL documents and persist it,
-         for use by predict_document()/predict_text().
-
-    Returns a dict with evaluation metrics and training metadata.
-    """
     vectorizer, matrix, labels, document_ids = _get_corpus_matrix_and_labels()
 
     unique_categories = sorted(set(labels))
-    category_counts = {cat: int((labels == cat).sum()) for cat in unique_categories}
+    category_counts = {
+        cat: int((labels == cat).sum()) for cat in unique_categories
+    }
     min_class_count = min(category_counts.values())
     document_count = len(labels)
 
     if document_count < MIN_DOCUMENTS_TO_TRAIN:
         raise ClassificationError(
-            f"At least {MIN_DOCUMENTS_TO_TRAIN} documents are needed to train a classifier "
-            f"(found {document_count})."
+            f"At least {MIN_DOCUMENTS_TO_TRAIN} documents are required."
         )
+
     if len(unique_categories) < MIN_CATEGORIES_TO_TRAIN:
-        raise ClassificationError(
-            f"At least {MIN_CATEGORIES_TO_TRAIN} distinct categories are needed to train a "
-            f"classifier (found {len(unique_categories)}: {unique_categories})."
-        )
+        raise ClassificationError("At least two categories are required.")
+
     if min_class_count < 2:
         raise ClassificationError(
-            f"Every category needs at least 2 documents for cross-validation to run at all "
-            f"(category counts: {category_counts}). Add more documents to the smallest category."
+            f"Every category needs at least two documents. Counts: {category_counts}"
         )
 
     effective_k_features = min(top_k_features, matrix.shape[1])
 
-    selector = SelectKBest(score_func=chi2, k=effective_k_features)
-    selected_matrix = selector.fit_transform(matrix, labels)
-
-    # Cross-validation fold count is capped by the smallest class -
-    # you cannot have more folds than the rarest category has examples.
     n_splits = min(min_class_count, 5)
-    n_splits = max(n_splits, 2)  # need at least 2 folds for CV to mean anything
+    cv = StratifiedKFold(
+        n_splits=n_splits,
+        shuffle=True,
+        random_state=42,
+    )
 
-    cv = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
+    # Evaluate with feature selection fitted separately inside each fold.
+    cv_pipeline = Pipeline([
+        (
+            "selector",
+            SelectKBest(score_func=chi2, k=effective_k_features),
+        ),
+        (
+            "classifier",
+            LogisticRegression(
+                C=1.0,
+                class_weight="balanced",
+                max_iter=3000,
+                random_state=42,
+            ),
+        ),
+    ])
 
-    nb_for_cv = MultinomialNB()
-    cv_predictions = cross_val_predict(nb_for_cv, selected_matrix, labels, cv=cv)
+    cv_predictions = cross_val_predict(
+        cv_pipeline,
+        matrix,
+        labels,
+        cv=cv,
+    )
 
     precision, recall, f1, _ = precision_recall_fscore_support(
-        labels, cv_predictions, average="macro", zero_division=0
+        labels,
+        cv_predictions,
+        average="macro",
+        zero_division=0,
     )
-    accuracy = float((cv_predictions == labels).mean())
 
-    conf_matrix = confusion_matrix(labels, cv_predictions, labels=unique_categories)
-    confusion_matrix_dict = {
-        "labels": unique_categories,
-        "matrix": conf_matrix.tolist(),
-    }
+    accuracy = float(np.mean(cv_predictions == labels))
 
-    # --- Retrain the FINAL production model on all available data ---
-    final_model = MultinomialNB()
+    conf_matrix = confusion_matrix(
+        labels,
+        cv_predictions,
+        labels=unique_categories,
+    )
+
+    # Fit final selector and primary classifier on the complete fitted corpus.
+    selector = SelectKBest(
+        score_func=chi2,
+        k=effective_k_features,
+    )
+    selected_matrix = selector.fit_transform(matrix, labels)
+
+    final_model = LogisticRegression(
+        C=1.0,
+        class_weight="balanced",
+        max_iter=3000,
+        random_state=42,
+    )
     final_model.fit(selected_matrix, labels)
 
+    # Retain a separately trained Naive Bayes fallback.
+    naive_bayes_model = MultinomialNB()
+    naive_bayes_model.fit(selected_matrix, labels)
+
     model_dir = _model_dir()
+
     joblib.dump(selector, model_dir / SELECTOR_FILENAME)
     joblib.dump(final_model, model_dir / MODEL_FILENAME)
+    joblib.dump(
+        naive_bayes_model,
+        model_dir / NAIVE_BAYES_MODEL_FILENAME,
+    )
     joblib.dump(sorted(unique_categories), model_dir / LABELS_FILENAME)
 
     logger.info(
-        "Trained Naive Bayes: %d documents, %d categories, %d features selected, "
-        "%d-fold CV accuracy=%.3f, macro-F1=%.3f",
-        document_count, len(unique_categories), effective_k_features,
-        n_splits, accuracy, f1,
+        "Trained Logistic Regression: %d documents, %d categories, "
+        "%d features, %d-fold CV, accuracy=%.3f, macro-F1=%.3f",
+        document_count,
+        len(unique_categories),
+        effective_k_features,
+        n_splits,
+        accuracy,
+        f1,
     )
 
     is_small_corpus = document_count < 30 or min_class_count < 5
 
     return {
+        "model": "Logistic Regression",
         "document_count": document_count,
         "category_counts": category_counts,
         "features_selected": effective_k_features,
@@ -171,7 +210,10 @@ def train_and_evaluate(top_k_features: int = DEFAULT_TOP_K_FEATURES) -> dict:
         "precision_macro": round(float(precision), 4),
         "recall_macro": round(float(recall), 4),
         "f1_macro": round(float(f1), 4),
-        "confusion_matrix": confusion_matrix_dict,
+        "confusion_matrix": {
+            "labels": unique_categories,
+            "matrix": conf_matrix.tolist(),
+        },
         "is_small_corpus": is_small_corpus,
     }
 

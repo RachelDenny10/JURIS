@@ -23,18 +23,17 @@ router = APIRouter(prefix="/classification", tags=["classification"])
 
 
 @router.post("/train", response_model=ClassificationTrainResponse)
-def train_classifier(top_k_features: int = Query(default=200, ge=10, le=5000)):
-    """
-    Train and cross-validate the Naive Bayes classifier using the
-    TF-IDF -> Chi-Square -> Naive Bayes pipeline (Section 7).
-
-    Requires TF-IDF to already be fitted (POST /analysis/tfidf/fit)
-    across at least 2 categories with at least 2 documents each.
-    """
+def train_classifier(top_k_features: int = Query(default=500, ge=10, le=5000)):
+    """Train and evaluate the Logistic Regression classifier."""
     try:
-        result = classification_service.train_and_evaluate(top_k_features=top_k_features)
+        result = classification_service.train_and_evaluate(
+            top_k_features=top_k_features
+        )
     except classification_service.ClassificationError as exc:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(exc),
+        ) from exc
     except Exception:
         logger.exception("Unexpected error training classifier")
         raise HTTPException(
@@ -47,10 +46,9 @@ def train_classifier(top_k_features: int = Query(default=200, ge=10, le=5000)):
         warning = (
             f"This corpus has only {result['document_count']} documents "
             f"(category counts: {result['category_counts']}), evaluated with "
-            f"{result['cv_folds']}-fold cross-validation. These metrics demonstrate that the "
-            f"TF-IDF -> Chi-Square -> Naive Bayes pipeline works correctly, but are not a "
-            f"statistically robust accuracy claim. Add more labeled documents per category "
-            f"for a more reliable evaluation."
+            f"{result['cv_folds']}-fold cross-validation. These metrics are "
+            f"preliminary and are not a statistically robust accuracy claim. "
+            f"Add more labeled documents per category for a more reliable evaluation."
         )
 
     return ClassificationTrainResponse(
@@ -67,7 +65,6 @@ def train_classifier(top_k_features: int = Query(default=200, ge=10, le=5000)):
         is_small_corpus=result["is_small_corpus"],
         warning=warning,
     )
-
 
 @router.get("/status", response_model=ClassificationStatusResponse)
 def classification_status():

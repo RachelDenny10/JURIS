@@ -46,3 +46,39 @@ models/vector_store/*
 
 # ---- Logs ----
 *.log
+# ---- JURIS shared processed data ----
+data/processed/*
+!data/processed/.gitkeep
+!data/processed/*.txt
+!data/processed/*_preprocessed.json
+!data/processed/*_summary.json
+!data/processed/*_entities.json
+data/processed/*.bak
+
+# ---- Share trained classification artifacts ----
+models/classification/*
+!models/classification/.gitkeep
+!models/classification/*.joblib
+!models/classification/tfidf_doc_index.json
+models/classification/backup_22_docs/
+
+# ---- Share semantic embeddings ----
+models/embeddings/*
+!models/embeddings/.gitkeep
+!models/embeddings/*_chunks.json
+!models/embeddings/*_vectors.npy
+
+# ---- Share FAISS vector index ----
+models/vector_store/*
+!models/vector_store/.gitkeep
+!models/vector_store/juris_index.faiss
+!models/vector_store/juris_index_meta.json
+
+# ---- Exclude temporary backups ----
+*.bak
+*.backup
+*.before_*
+*before_rollback*
+
+# Temporary backup files
+*backup*

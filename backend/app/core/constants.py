@@ -18,7 +18,7 @@ class DocumentCategory(str, Enum):
 
 
 CATEGORY_LABELS: dict[str, str] = {
-    DocumentCategory.A.value: "Consumer Protection Act, 2019",
+    DocumentCategory.A.value: "Primary Consumer-Related Legislation",
     DocumentCategory.B.value: "Consumer Protection Rules",
     DocumentCategory.C.value: "Consumer Protection Regulations",
     DocumentCategory.D.value: "Special Consumer Rules",

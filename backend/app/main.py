@@ -1,16 +1,16 @@
-"""
-JURIS backend entrypoint.
-
-Registers all API routers (documents, analysis, classification,
-entities, embeddings, search) and initialises storage on startup.
-"""
-import os
+﻿import os
 
 # FAISS (libomp140) and PyTorch (libiomp5md) each bundle an OpenMP runtime, and
 # Windows refuses to load both unless this flag is set. It is unsupported by
 # OpenMP, so vector_search_service verifies FAISS results against numpy at build
 # time. Must run before torch or faiss are imported anywhere.
 os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
+
+"""
+JURIS backend entrypoint.
+
+Registers all API routers and initialises storage on startup.
+"""
 
 import logging
 
@@ -23,6 +23,8 @@ from app.api.documents import router as documents_router
 from app.api.embeddings import router as embeddings_router
 from app.api.entities import router as entities_router
 from app.api.search import router as search_router
+from app.api.summarization import router as summarization_router
+from app.api.situation import router as situation_router
 from app.core.config import get_settings
 from app.services.document_service import ensure_storage_ready
 
@@ -54,6 +56,8 @@ app.include_router(classification_router)
 app.include_router(entities_router)
 app.include_router(embeddings_router)
 app.include_router(search_router)
+app.include_router(summarization_router)
+app.include_router(situation_router)
 
 
 @app.on_event("startup")

@@ -234,6 +234,7 @@ def delete_document(document_id: str) -> None:
         f"{document_id}.txt",
         f"{document_id}_preprocessed.json",
         f"{document_id}_entities.json",
+        f"{document_id}_summary.json",
     ):
         derived = processed_dir / name
         if derived.exists():
