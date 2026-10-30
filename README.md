@@ -128,4 +128,316 @@ JURIS incorporates several text-mining concepts throughout its processing pipeli
 5. Lemmatization.
 6. Feature extraction and document classification.
 7. Entity extraction and summarization.
-8. Emb
+8. Embedding generation and vector indexing.
+9. Keyword and semantic retrieval.
+10. Consumer situation analysis.
+
+---
+
+## System Architecture
+
+JURIS follows a frontend-backend architecture.
+
+**Frontend**
+- Provides the user interface.
+- Allows users to interact with document processing, search, classification, summarization, and situation-analysis features.
+
+**Backend**
+- Provides REST API endpoints using FastAPI.
+- Handles document processing and NLP operations.
+- Manages machine-learning models and semantic retrieval.
+- Integrates the LLM service for situation-based analysis.
+
+**Data and Model Layer**
+- Stores processed document text and metadata.
+- Stores trained classification models.
+- Stores document embeddings and vector indexes.
+- Supports document retrieval and analysis.
+
+---
+
+## Document Categories
+
+JURIS organizes consumer-law documents into six predefined categories.
+
+| Category | Description |
+|---|---|
+| A | Primary Consumer-Related Legislation |
+| B | Consumer Protection Rules |
+| C | Consumer Protection Regulations |
+| D | Special Consumer Rules |
+| E | Consumer Protection Guidelines |
+| F | Consumer Law Case Decisions |
+
+These categories provide a structured organization for legal documents and support document retrieval and classification.
+
+---
+
+## Technology Stack
+
+### Frontend
+- React
+- TypeScript
+- Vite
+- CSS
+
+### Backend
+- Python
+- FastAPI
+- Uvicorn
+- Pydantic
+
+### Text Mining and Machine Learning
+- NLTK
+- spaCy
+- Scikit-learn
+- NumPy
+- Joblib
+- NetworkX
+
+### Document Processing
+- PyMuPDF
+- Tesseract OCR
+- Pytesseract
+- Pillow
+
+### Semantic Search
+- Sentence Transformers
+- PyTorch
+- FAISS
+
+### Database and Storage
+- SQLAlchemy
+- SQLite / PostgreSQL (depending on configuration)
+- JSON-based processed document storage
+
+### AI Integration
+- Configurable LLM service
+- Gemini or other supported provider, depending on configuration
+
+---
+
+## Project Structure
+
+```text
+JURIS/
+│
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   │   ├── analysis.py
+│   │   │   ├── classification.py
+│   │   │   ├── documents.py
+│   │   │   ├── embeddings.py
+│   │   │   ├── entities.py
+│   │   │   ├── search.py
+│   │   │   ├── situation.py
+│   │   │   └── summarization.py
+│   │   │
+│   │   ├── core/
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   ├── services/
+│   │   └── main.py
+│   │
+│   ├── scripts/
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── ...
+│
+├── data/
+│   ├── processed/
+│   ├── raw/
+│   └── metadata/
+│
+├── models/
+│   ├── classification/
+│   ├── embeddings/
+│   └── vector_store/
+│
+├── storage/
+│
+├── .env.example
+├── .gitignore
+└── README.md
+```
+
+---
+
+## Installation and Setup
+
+### Prerequisites
+
+Install the following before running JURIS:
+
+- Python 3.10 or later (use a version compatible with the pinned dependencies).
+- Node.js and npm.
+- Git.
+- Tesseract OCR.
+- A configured LLM API key if using AI-assisted analysis.
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/RachelDenny10/JURIS.git
+```
+
+Navigate into the project directory:
+
+```bash
+cd JURIS
+```
+
+### 2. Backend Setup
+
+Create a Python virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate it on Windows:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+Install backend dependencies:
+
+```bash
+pip install -r backend/requirements.txt
+```
+
+### 3. Environment Configuration
+
+Create your local environment file using the example:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Open `.env` and configure the required database settings, model configuration, and your own API credentials.
+
+**Never commit your `.env` file or publish API keys.**
+
+### 4. Frontend Setup
+
+Open another terminal and navigate to the frontend:
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+---
+
+## Running the Application
+
+### 1. Start the Backend
+
+From the project root, activate the virtual environment and run:
+
+```bash
+python -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8001 --reload
+```
+
+Backend URL:
+
+http://127.0.0.1:8001
+
+### 2. Start the Frontend
+
+In another terminal:
+
+```bash
+cd frontend
+npm run dev
+```
+
+Open the local URL displayed by Vite, usually:
+
+http://localhost:5173
+
+### 3. Access API Documentation
+
+FastAPI provides interactive API documentation:
+
+http://127.0.0.1:8001/docs
+
+---
+
+## API Documentation
+
+The backend exposes REST API endpoints for the different JURIS modules.
+
+| Endpoint | Purpose |
+|---|---|
+| `/health` | Backend health check |
+| `/docs` | Interactive API documentation |
+| `/search/semantic` | Semantic legal-document search |
+| `/analysis/tfidf/fit` | Fit or refit the TF-IDF representation |
+| `/analysis/tfidf/status` | Check TF-IDF model status |
+| `/search/index/build` | Build the semantic search index |
+| `/situation/analyze` | Analyze a consumer-related situation |
+
+Refer to the interactive Swagger documentation at `/docs` for available request formats and responses.
+
+---
+
+## Dataset and Models
+
+JURIS uses a collection of consumer-law documents organized into six categories.
+
+The repository includes processed textual data and pretrained model artifacts to support the existing text-mining and retrieval workflow.
+
+The shared model artifacts include:
+
+- TF-IDF vectorizer and feature matrix.
+- Logistic Regression classification model.
+- Multinomial Naive Bayes classification model.
+- Chi-square feature selector.
+- Sentence embedding vectors.
+- Document chunk metadata.
+- FAISS semantic search index and metadata.
+
+**Dataset note:** Original PDF documents and local database files may not be included in the public repository because of redistribution permissions and local configuration. The shared processed data and model artifacts are provided separately from those original files. Rebuilding the database or processing additional documents may require the original documents and appropriate configuration.
+
+---
+
+## Future Enhancements
+
+- Expand the legal-document dataset.
+- Improve classification accuracy with additional training data.
+- Enhance legal entity recognition.
+- Improve semantic retrieval and ranking.
+- Support additional document formats.
+- Add multilingual legal-document processing.
+- Improve explainability and traceability of retrieved legal provisions.
+- Expand consumer-law decision-support capabilities.
+
+---
+
+## Disclaimer
+
+JURIS is an academic and research-oriented project developed for legal-document text mining and consumer-law information support.
+
+The information generated by the system is intended for educational and informational purposes. It does not constitute legal advice, and users should consult qualified legal professionals for specific legal matters.
+
+---
+
+## Author
+
+**Developed as an academic project**
+
+**Project Name:** JURIS – Hybrid Legal Document Text Mining and Consumer Law Decision Support System
+
+**Repository:** https://github.com/RachelDenny10/JURIS
